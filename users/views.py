@@ -25,3 +25,28 @@ def register_page(request):
         "profile_form": profile_form,
     }
     return render(request, "users/register_page.html", context=context)
+
+
+def login_page(request):
+    error = ""
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        if len(username) == 0 or len(password) == 0:
+            error = "Заполните все поля"
+        else:
+            user = authenticate(request, username=username, password=password)
+            if user is None:
+                error = "нет такого пользователя"
+            else:
+                login(request, user)
+                return redirect("main_page")
+    context = {
+        "error": error
+    }
+    return render(request, "main/index.html", context=context)
+
+
+def log_out(request):
+    logout(request)
+    return redirect("main_page")

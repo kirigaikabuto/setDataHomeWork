@@ -1,0 +1,93 @@
+{%extends 'private_room/base.html'%}
+{%load static%}
+{%block content%}
+ <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+     <div class="site-wrap">
+         <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mb-5">
+
+            <div class="mb-5">
+              <h3 class="text-black">Урок {{lesson.name}}</h3>
+              <p class="mb-4">
+                <strong class="text-black mr-3">Дата проведения: </strong> {{lesson.planning_date}}
+              </p>
+                <p>{{lesson.description}}</p>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <img src="{% static 'images/img_1.jpg'%}" alt="Image" class="img-fluid rounded">
+                </div>
+                <div class="col-md-6">
+                  <img src="{% static 'images/img_2.jpg'%}" alt="Image" class="img-fluid rounded">
+                </div>
+              </div>
+              <p>Ipsam fuga fugiat vero repudiandae, tenetur a ullam, expedita perspiciatis dolores rem quibusdam numquam dicta sint unde repellat magni recusandae. Id, quibusdam, voluptatum. Amet mollitia ratione, illum animi quia ex?</p>
+              <p>Sint aut repudiandae, in amet nemo. Nobis labore id iure molestias reprehenderit quisquam illo quod cum dolorum aspernatur ut sequi, facere beatae, porro cupiditate magnam laborum laudantium laboriosam ab autem!</p>
+
+              <p class="mt-4"><a href="#" class="btn btn-primary">Admission</a></p>
+            </div>
+
+            <div class="pt-5">
+              <h3 class="mb-5">6 Комментариев</h3>
+              <ul class="comment-list">
+               {%for comment in comments%}
+                 <li class="comment">
+                  <div class="vcard bio">
+                    <img src="/media/{{comment.student.avatar}}" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body">
+                    <h3>{{comment.student.user.username}}</h3>
+                    <div class="meta">{{comment.created_at}}</div>
+                    <p>{{comment.message}}</p>
+                  </div>
+                </li>
+                {%endfor%}
+
+              </ul>
+              <!-- END comment-list -->
+
+              <div class="comment-form-wrap pt-5">
+                <h3 class="mb-5">Оставить комментарий</h3>
+                <form method="post" class="p-5 bg-light">
+                  {%csrf_token%}
+                  <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="Отправить сообщение" class="btn btn-primary">
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+
+
+          </div>
+          <div class="col-lg-4 pl-lg-5">
+
+            <div class="mb-5 text-center border rounded course-instructor">
+              <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">Учитель</h3>
+              <div class="mb-4 text-center">
+                <img src="{% static 'images/person_2.jpg'%}" alt="Image" class="w-25 rounded-circle mb-4">
+                  <h3 class="h5 text-black mb-4"><a href="#">{{teacher.username}}</a></h3>
+                <p>Lorem ipsum dolor sit amet sectetur adipisicing elit. Ipsa porro expedita libero pariatur vero eos.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+    </main>
+{%endblock%}

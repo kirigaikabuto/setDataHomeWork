@@ -33,23 +33,14 @@
           </thead>
           <tbody>
            {%for lesson in lessons%}
-           {%if lesson.success %}
-           <tr style="background-color: green;color:white">
+
+           <tr>
              <td>{{lesson.pk}}</td>
              <td>{{lesson.planning_date}}</td>
                <td><a href="{% url 'lesson_detail' pk=lesson.pk%}">{{lesson.name}}</a></td>
              <td>{{teacher.username}}</td>
              <td>{{lesson.path_to_video_lesson}}</td>
            </tr>
-           {%else%}
-            <tr style="background-color: red;color:white">
-             <td>{{lesson.pk}}</td>
-             <td>{{lesson.planning_date}}</td>
-             <td><a href="{% url 'lesson_detail' pk=lesson.pk%}">{{lesson.name}}</a></td>
-             <td>{{teacher.username}}</td>
-             <td>{{lesson.path_to_video_lesson}}</td>
-           </tr>
-           {%endif%}
           {%endfor%}
           </tbody>
         </table>

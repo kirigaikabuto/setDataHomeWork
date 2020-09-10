@@ -9,3 +9,6 @@ class Student(models.Model):
     avatar = models.FileField(upload_to="students_avatars/")
     group = models.ForeignKey(CourseGroup, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username

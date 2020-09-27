@@ -48,6 +48,7 @@ def private_room_schedule_page(request):
             course_group = course_group.course_group
             lessons = Lesson.objects.all().filter(course_group=course_group)
             teacher = course_group.user_creator
+            print(teacher)
             data = {
                 "student": student,
                 "lessons": lessons,
@@ -66,6 +67,6 @@ def private_room_schedule_page(request):
 def private_room_all_courses_page(request):
     all_courses = Course.objects.all()
     context = {
-        "all_courses":all_courses,
+        "all_courses": all_courses,
     }
     return render(request, "private_room/all_courses.html", context=context)

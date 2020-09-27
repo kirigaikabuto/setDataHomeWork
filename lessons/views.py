@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import *
+from users.models import *
 
 
 def lesson_detail(request, pk):
@@ -10,10 +11,12 @@ def lesson_detail(request, pk):
         comment = Comment(lesson=lesson, student=student, message=message)
         comment.save()
     teacher = lesson.course_group.user_creator
+    profile = UserProfile.objects.get(user=teacher)
     comments = Comment.objects.filter(lesson=lesson)
     context = {
         "lesson": lesson,
         "teacher": teacher,
+        "profile": profile,
         "comments": comments,
     }
     return render(request, "lessons/lesson_detail.html", context=context)

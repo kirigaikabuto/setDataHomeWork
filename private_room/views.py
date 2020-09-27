@@ -35,3 +35,37 @@ def private_room_main_page(request):
         return render(request, "private_room/main.html", context=context)
     else:
         return render(request, "private_room/admin.html")
+
+
+def private_room_schedule_page(request):
+    students = Student.objects.filter(user=request.user)
+
+    if len(students) != 0:
+        student = students[0]
+        all_groups = CourseChoice.objects.filter(student=student, course_group__is_ended=False)
+        all_data = []
+        for course_group in all_groups:
+            course_group = course_group.course_group
+            lessons = Lesson.objects.all().filter(course_group=course_group)
+            teacher = course_group.user_creator
+            data = {
+                "student": student,
+                "lessons": lessons,
+                "teacher": teacher,
+                "course_group": course_group,
+            }
+            all_data.append(data)
+        context = {
+            "all_data": all_data,
+        }
+        return render(request, "private_room/schedule.html", context=context)
+    else:
+        return render(request, "private_room/admin.html")
+
+
+def private_room_all_courses_page(request):
+    all_courses = Course.objects.all()
+    context = {
+        "all_courses":all_courses,
+    }
+    return render(request, "private_room/all_courses.html", context=context)
